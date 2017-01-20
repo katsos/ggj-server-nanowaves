@@ -1,0 +1,30 @@
+{
+  "name": "gjj-server",
+  "version": "0.1.0",
+  "description": "Global Game Jam 2017 (Athens) - NanoWaves Server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katsos/ggj-server-nanowaves.git"
+  },
+  "keywords": [
+    "game",
+    "global-game-jam",
+    "server"
+  ],
+  "author": "Nikos Katsos <nikoskatsos101@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katsos/ggj-server-nanowaves/issues"
+  },
+  "homepage": "https://github.com/katsos/ggj-server-nanowaves#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "sqlite3": "^3.1.8"
+  }
+}
