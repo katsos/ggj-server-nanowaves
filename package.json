@@ -4,8 +4,9 @@
   "description": "Global Game Jam 2017 (Athens) - NanoWaves Server",
   "main": "index.js",
   "scripts": {
+    "clear": "rm -Rf node_modules",
     "dev": "nodemon index.js",
-    "start": "node index.js",
+    "start": "forever start index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
