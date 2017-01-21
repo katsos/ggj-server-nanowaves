@@ -62,7 +62,7 @@ app.post('/session', (req, res) => {
     });
 
     if (!found) onlineUsers.push({ip: userIp, token: usertoken});
-    res.send(`{token:${usertoken}}`);
+    res.header('token', usertoken).send();
 });
 
 app.delete('/session', (req, res) => {
