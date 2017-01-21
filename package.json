@@ -1,5 +1,5 @@
 {
-  "name": "gjj-server",
+  "name": "ggj-server-nanowaves",
   "version": "0.0.1",
   "description": "Global Game Jam 2017 (Athens) - NanoWaves Server",
   "main": "index.js",
