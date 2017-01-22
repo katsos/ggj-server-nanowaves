@@ -96,7 +96,7 @@ function isAuthorizedUser(id, token) {
 
 function addScore(data, cb) {
     db.serialize(() => {
-        db.run('INSERT INTO users(username, score) VALUES (?,?)',[data.username, data.highscore]);
+        db.run('INSERT INTO users(username, highscore) VALUES (?,?)',[data.username, data.highscore]);
         cb();
     });
 }
