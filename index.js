@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // support URL-encoded bodies
   extended: true
-})); 
+}));
 
 let db = new sqlite3.cached.Database('./db.sqlite3');
 let onlineUsers = [];
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
  */
 app.get('/scores', (req, res) => {
     let response = [];
-    db.each('SELECT * from users', (err, row) => response.push(row), () => {
+    db.each('SELECT * from users ORDER BY highscore DESC', (err, row) => response.push(row), () => {
         console.log('inside', response)
         res.send(response);
     });
