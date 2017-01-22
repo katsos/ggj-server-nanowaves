@@ -28,6 +28,9 @@ app.get('/', (req, res) => {
  * Anyone can see scores.
  */
 app.get('/scores', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods","GET");
+
     let response = [];
     db.each('SELECT * from users ORDER BY highscore DESC', (err, row) => response.push(row), () => {
         console.log('inside', response)
