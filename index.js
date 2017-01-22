@@ -37,7 +37,7 @@ app.get('/scores', (req, res) => {
 });
 
 app.post('/score', (req, res) => {
-    if (!req.body.username || !req.body.score) res.status(403).end('Invalid parameters');
+    if (!req.body.username || !req.body.highscore) res.status(403).end('Invalid parameters');
     let found = onlineUsers.find(user => {
         if (user.ip !== req.ip) return;
         // TODO: add authorization needed to add score
@@ -96,7 +96,7 @@ function isAuthorizedUser(id, token) {
 
 function addScore(data, cb) {
     db.serialize(() => {
-        db.run('INSERT INTO users(username, score) VALUES (?,?)',[data.username, data.score]);
+        db.run('INSERT INTO users(username, score) VALUES (?,?)',[data.username, data.highscore]);
         cb();
     });
 }
