@@ -33,11 +33,7 @@ app.get('/scores', (req, res) => {
     res.header("Access-Control-Allow-Methods","GET");
 
     let response = [];
-    db.each('SELECT * from users ORDER BY highscore DESC', (err, row) => response.push(row), () => {
-        console.log('inside', response)
-        res.send(response);
-    });
-    console.log(response)
+    db.each('SELECT * from users ORDER BY highscore DESC', (err, row) => response.push(row), () => res.send(response));
 });
 
 app.post('/score', (req, res) => {
@@ -51,7 +47,7 @@ app.post('/score', (req, res) => {
         }, err => res.status(500).end('There was an error!'));
         return true;
     })
-    
+
     if (!found) res.status(403).end('No matching IP and unique token');
 });
 
@@ -71,7 +67,7 @@ app.post('/session', (req, res) => {
 
 app.delete('/session', (req, res) => {
     if (!req || !req.body || !req.body.token) res.status(400).end({token:'invalid'});
-    
+
     const deleted = onlineUsers.find((user, index) => {
         if (user.ip !== req.ip) return;
         let isAuthorized = isAuthorizedUser(user.id, req.body.token);
