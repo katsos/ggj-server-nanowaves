@@ -37,18 +37,16 @@ app.get('/scores', (req, res) => {
 });
 
 app.post('/score', (req, res) => {
-    if (!req.body.username || !req.body.highscore) res.status(403).end('Invalid parameters');
+    if (!req.body.username || !req.body.highscore || !req.body.token)return res.status(403).end('Invalid parameters');
+
     let found = onlineUsers.find(user => {
         if (user.ip !== req.ip) return;
-        // TODO: add authorization needed to add score
-        // if (!isAuthorizedUser(user.ip, req.body.token)) return;
-        addScore(req.body,() => {
-            res.status(200).end('Score added!');
-        }, err => res.status(500).end('There was an error!'));
+        if (!isAuthorizedUser(user.ip, req.body.token)) return res.status(403).end('Authorization failed!');
+        addScore(req.body,() => res.status(200).end('Score added!'));
         return true;
-    })
+    });
 
-    if (!found) res.status(403).end('No matching IP and unique token');
+    if (!found) res.status(403).end('No matching session');
 });
 
 app.post('/session', (req, res) => {
@@ -89,8 +87,8 @@ function generateKey() {
  * Search all online users if those credentials belong to any of them.
  * @returns {undefined|integer} Undefined for non found user, or the index of user in "onlineUsers"
  */
-function isAuthorizedUser(id, token) {
-    let is = onlineUsers.find(user => user.id === id && user.token === token);
+function isAuthorizedUser(ip, token) {
+    let is = onlineUsers.find(user => user.ip === ip && user.token === token);
     return (!!is);
 }
 
