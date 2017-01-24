@@ -1,5 +1,6 @@
 'use strict';
 const express = require('express');
+const entities = require('entities');
 const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
 const morgan  = require('morgan')
@@ -98,8 +99,11 @@ function isAuthorizedUser(id, token) {
 }
 
 function addScore(data, cb) {
+    data.username = entities.encode(data.username);
+    data.score = entities.encode(data.score);
+
     db.serialize(() => {
-        db.run('INSERT INTO users(username, highscore) VALUES (?,?)',[data.username, data.highscore]);
+        db.run('INSERT INTO users(username, highscore) VALUES (?,?)', [data.username, data.highscore]);
         cb();
     });
 }
