@@ -80,7 +80,7 @@ function isAuthorizedUser(ip, token) {
 
 function addScore(data, cb) {
     data.username = entities.encode(data.username);
-    data.score = entities.encode(data.score);
+    data.highscore = entities.encode(data.highscore.toString());
 
     db.serialize(() => {
         db.run('INSERT INTO users(username, highscore) VALUES (?,?)', [data.username, data.highscore]);
