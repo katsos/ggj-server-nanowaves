@@ -63,20 +63,6 @@ app.post('/session', (req, res) => {
     res.header('token', usertoken).send();
 });
 
-app.delete('/session', (req, res) => {
-    if (!req || !req.body || !req.body.token) res.status(400).end({token:'invalid'});
-
-    const deleted = onlineUsers.find((user, index) => {
-        if (user.ip !== req.ip) return;
-        let isAuthorized = isAuthorizedUser(user.id, req.body.token);
-        if (!isAuthorized) return;
-        onlineUsers.splice(index, 1);
-        return true;
-    });
-
-    (!!deleted) ? res.status(200).send({deleted:true}) : res.status(404).send({deleted:false});
-});
-
 function generateKey() {
     let sha = crypto.createHash('sha256');
     sha.update(Math.random().toString());
