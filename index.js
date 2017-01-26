@@ -3,10 +3,12 @@ const express = require('express');
 const entities = require('entities');
 const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
+const cors = require('cors');
 const morgan  = require('morgan')
 
 /* APP CONFIGS */
 let app = express();
+app.use(cors());
 app.use(morgan('dev'))
 app.listen(8888);
 const bodyParser = require('body-parser');
@@ -29,9 +31,6 @@ app.get('/', (req, res) => {
  * Anyone can see scores.
  */
 app.get('/scores', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods","GET");
-
     let response = [];
     db.each('SELECT * from users ORDER BY highscore DESC', (err, row) => response.push(row), () => res.send(response));
 });
